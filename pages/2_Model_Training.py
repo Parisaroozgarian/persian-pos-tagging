@@ -11,6 +11,7 @@ sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'src'))
 from model_trainer import ModelTrainer, create_data_loaders
 from freezing_strategies import get_available_strategies, visualize_freezing_strategy, get_strategy_recommendations
 from visualization import create_real_time_training_plot, update_training_plot
+from database import get_database_manager
 
 st.set_page_config(page_title="Model Training", page_icon="🤖", layout="wide")
 
@@ -152,9 +153,39 @@ else:
     col1, col2, col3 = st.columns([1, 2, 1])
     
     with col2:
+        experiment_name = st.text_input("Experiment Name", value=f"Experiment_{datetime.now().strftime('%Y%m%d_%H%M')}")
+        
         if st.button("🎯 Start Training Experiments", type="primary", disabled=st.session_state.training_in_progress):
-            st.session_state.training_in_progress = True
-            st.rerun()
+            # Create experiment in database
+            try:
+                db_manager = get_database_manager()
+                experiment_config = {
+                    'model_name': model_name,
+                    'epochs': epochs,
+                    'batch_size': batch_size,
+                    'learning_rate': learning_rate,
+                    'strategies': selected_strategies
+                }
+                
+                dataset_id = st.session_state.get('dataset_id', None)
+                experiment_id = db_manager.create_experiment(
+                    name=experiment_name,
+                    description=f"Persian PoS tagging with {len(selected_strategies)} freezing strategies",
+                    dataset_id=dataset_id,
+                    config=experiment_config
+                )
+                
+                if experiment_id:
+                    st.session_state.current_experiment_id = experiment_id
+                    st.session_state.training_in_progress = True
+                    st.rerun()
+                else:
+                    st.error("Failed to create experiment in database")
+            except Exception as e:
+                st.error(f"Database error: {str(e)}")
+                # Proceed without database
+                st.session_state.training_in_progress = True
+                st.rerun()
     
     # Training execution
     if st.session_state.training_in_progress:
@@ -287,7 +318,30 @@ else:
         st.session_state.models_trained = True
         st.session_state.training_in_progress = False
         
-        st.success("🎉 Training completed successfully!")
+        # Save results to database
+        try:
+            if 'current_experiment_id' in st.session_state:
+                db_manager = get_database_manager()
+                experiment_id = st.session_state.current_experiment_id
+                
+                # Save each strategy's results
+                for strategy in training_results:
+                    db_manager.save_training_result(
+                        experiment_id=experiment_id,
+                        strategy=strategy,
+                        results=training_results[strategy],
+                        freezing_info=freezing_info[strategy]
+                    )
+                
+                # Update experiment status
+                db_manager.update_experiment_status(experiment_id, 'completed', datetime.now())
+                st.success("🎉 Training completed and results saved to database!")
+            else:
+                st.success("🎉 Training completed successfully!")
+        except Exception as e:
+            st.success("🎉 Training completed successfully!")
+            st.warning(f"⚠️ Database save failed: {str(e)}")
+        
         st.info("Navigate to the Results Analysis page to explore your findings.")
         
         # Auto-refresh to update UI

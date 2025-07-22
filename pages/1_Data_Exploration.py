@@ -9,6 +9,7 @@ sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'src'))
 
 from data_loader import load_persian_ud_dataset, prepare_datasets, get_dataset_statistics
 from visualization import create_pos_distribution_chart, create_dataset_overview, create_model_architecture_diagram
+from database import get_database_manager
 
 st.set_page_config(page_title="Data Exploration", page_icon="📊", layout="wide")
 
@@ -81,7 +82,25 @@ if st.sidebar.button("Load Dataset", type="primary"):
                     'num_labels': stats['num_labels']
                 }
                 
-                st.success("✅ Dataset prepared and tokenized!")
+                # Save to database
+                try:
+                    db_manager = get_database_manager()
+                    dataset_config = {
+                        'subset_size': dataset_size,
+                        'tokenizer_name': tokenizer_name,
+                        'max_length': max_length
+                    }
+                    dataset_id = db_manager.save_dataset(dataset_config, stats)
+                    if dataset_id:
+                        st.session_state.dataset_id = dataset_id
+                        st.success("✅ Dataset prepared, tokenized, and saved to database!")
+                    else:
+                        st.success("✅ Dataset prepared and tokenized!")
+                        st.warning("⚠️ Could not save to database")
+                except Exception as e:
+                    st.success("✅ Dataset prepared and tokenized!")
+                    st.warning(f"⚠️ Database save failed: {str(e)}")
+                
                 st.rerun()
             else:
                 st.error("❌ Failed to load dataset")

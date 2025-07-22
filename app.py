@@ -5,6 +5,12 @@ import sys
 # Add src directory to path
 sys.path.append(os.path.join(os.path.dirname(__file__), 'src'))
 
+try:
+    from database import get_database_manager
+    DATABASE_AVAILABLE = True
+except:
+    DATABASE_AVAILABLE = False
+
 def main():
     st.set_page_config(
         page_title="Persian PoS Tagging - Layer Freezing Research",
@@ -52,6 +58,7 @@ def main():
         1. **📊 Data Exploration**: Load and explore the Persian UD dataset
         2. **🤖 Model Training**: Configure and train baseline vs. frozen models
         3. **📈 Results Analysis**: Compare performance and analyze findings
+        4. **🗄️ Database Management**: View experiment history and manage research data
         """)
     
     with col2:
@@ -68,6 +75,19 @@ def main():
         else:
             st.info("🤖 Train models after loading data")
             
+        # Database status
+        if DATABASE_AVAILABLE:
+            try:
+                db_manager = get_database_manager()
+                stats = db_manager.get_dataset_stats()
+                st.success("🗄️ Database Connected")
+                if stats.get('total_experiments', 0) > 0:
+                    st.metric("Total Experiments", stats['total_experiments'])
+            except:
+                st.error("🗄️ Database Error")
+        else:
+            st.warning("🗄️ Database Unavailable")
+        
         # Dataset info if loaded
         if st.session_state.dataset_loaded and 'dataset_info' in st.session_state:
             info = st.session_state.dataset_info

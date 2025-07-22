@@ -17,6 +17,7 @@ Preferred communication style: Simple, everyday language.
   - Data Exploration (pages/1_Data_Exploration.py)
   - Model Training (pages/2_Model_Training.py) 
   - Results Analysis (pages/3_Results_Analysis.py)
+  - Database Management (pages/4_Database_Management.py)
 - **State Management**: Uses Streamlit session state to persist data and results across pages
 
 ### Backend Architecture
@@ -24,6 +25,8 @@ Preferred communication style: Simple, everyday language.
 - **Model Architecture**: DistilmBERT-based token classification for sequence labeling
 - **Training Pipeline**: Custom ModelTrainer class with freezing strategy support
 - **Data Processing**: Custom dataset classes and preprocessing pipelines
+- **Database**: PostgreSQL with SQLAlchemy ORM for experiment management
+- **Data Persistence**: Automatic saving of datasets, experiments, and results
 
 ### Key Design Patterns
 - **Modular Design**: Functionality separated into focused modules in src/ directory
@@ -39,6 +42,14 @@ Preferred communication style: Simple, everyday language.
   - Custom PyTorch Dataset class for POS tagging
   - Tokenization with configurable tokenizers
   - Statistical analysis of dataset properties
+
+### Database Management (`src/database.py`)
+- **Purpose**: Manages experiment data persistence and historical analysis
+- **Key Features**:
+  - SQLAlchemy models for datasets, experiments, and results
+  - Automatic experiment tracking and metadata storage
+  - Result comparison across multiple training runs
+  - Export functionality for research documentation
 
 ### Model Training (`src/model_trainer.py`)
 - **Purpose**: Manages model training with various freezing strategies
@@ -76,12 +87,15 @@ Preferred communication style: Simple, everyday language.
 1. **Data Loading**: Persian UD dataset loaded from HuggingFace datasets
 2. **Preprocessing**: Tokenization using multilingual tokenizers, label alignment
 3. **Dataset Creation**: Custom PyTorch datasets with configurable parameters
-4. **Model Training**: 
+4. **Database Storage**: Dataset configuration and statistics saved to PostgreSQL
+5. **Experiment Creation**: Experiment metadata recorded in database
+6. **Model Training**: 
    - Model instantiation with freezing strategy applied
    - Training loop with real-time metrics tracking
-   - Results storage in session state
-5. **Evaluation**: Performance comparison and statistical analysis
-6. **Visualization**: Interactive charts for results exploration
+   - Results storage in session state and database
+7. **Evaluation**: Performance comparison and statistical analysis
+8. **Visualization**: Interactive charts for results exploration
+9. **Historical Analysis**: Cross-experiment comparison and trend analysis
 
 ## External Dependencies
 
