@@ -1,0 +1,39 @@
+Part 1: Challenge Coding Question
+Partial Freezing of Multilingual Models for PoS Tagging in Persian
+Objective:
+Explore the impact of partial layer freezing when fine-tuning a distilled multilingual transformer model for Part-of-Speech (PoS) tagging in Persian.
+Background
+Recent advances in deep learning suggest that partially freezing layers in pre-trained models can improve efficiency and preserve learned linguistic features, especially in tasks like PoS tagging. This challenge explores this concept using a distilled multilingual transformer model (such as distilmBERT) applied to Persian.
+You are expected to have a background in:
+
+Deep Learning (with PyTorch, Transformers, and HuggingFace)
+Natural Language Processing (especially Part-of-Speech tagging)
+If you haven't taken these courses, you're allowed extra time. Please complete as much as you can. Even a partial solution or preliminary experimentation is valuable.
+Dataset
+Use a subset of the Persian data from the Universal Dependencies (UD) dataset — for example, UD_Persian-Seraji. Choose a manageable size to allow faster training and iteration.
+Tasks
+Task 1: Dataset Preparation & Baseline Model
+Load and preprocess the Persian UD dataset for PoS tagging. Use a tokenizer compatible with your model (e.g., BertTokenizerFast for distilmBERT).
+Fine-tune a distilled multilingual model (e.g., distilmBERT) on the dataset to establish a baseline performance.
+Use standard hyperparameters (e.g., batch size, learning rate) to reduce complexity and speed up training.
+Task 2: Model Adjustment with Partial Freezing
+Create a new instance of the same model and selectively freeze some of its layers based on your understanding of the architecture.
+Fine-tune the partially frozen model on the same dataset. Only update the unfrozen layers during training.
+Task 3: Evaluation and Analysis
+Compare the baseline and partially frozen models using accuracy as the primary metric.
+Reflect on your choices:
+Why did you freeze those specific layers?
+What impact did that have on performance?
+How did the results compare to expectations?
+Deliverables
+A brief report summarizing your:
+Dataset setup
+Model configurations
+Results and accuracy scores
+Analysis of the impact of partial freezing
+Time taken to complete the task (in hours)
+Your code, preferably in a Jupyter Notebook, Colab, or a similar interactive format, to make it easy to test and reproduce.
+Guidance & Tips
+Layer Selection: Think about what early, middle, and late layers capture in BERT-based models and how freezing affects learning.
+Resource Management: Use a small enough dataset subset to allow experimentation, but large enough to show performance trends.
+Explain Your Choices: Your reasoning behind freezing decisions and dataset design is just as important as the results.
