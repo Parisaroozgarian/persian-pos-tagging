@@ -13,12 +13,3 @@ license: mit
 # 🔬 Persian PoS Tagging
 
 Partial layer freezing research for Persian PoS Tagging using DistilmBERT.
-
-## Features
-- 📊 Data Exploration
-- 🤖 Model Training
-- 📈 Results Analysis
-- 🗄️ Database Management
-
-## Stack
-Streamlit · PyTorch · HuggingFace Transformers · Plotly · SQLAlchemy
