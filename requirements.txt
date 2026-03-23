@@ -1,0 +1,11 @@
+streamlit>=1.47.0
+torch>=2.7.1
+transformers>=4.40.0
+datasets>=2.19.0
+pandas>=2.3.1
+plotly>=6.2.0
+sqlalchemy>=2.0.41
+psycopg2-binary>=2.9.10
+scikit-learn>=1.4.0
+numpy>=1.26.0
+tqdm>=4.66.0
