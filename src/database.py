@@ -94,8 +94,7 @@ class DatabaseManager:
         try:
             database_url = os.getenv('DATABASE_URL')
             if not database_url:
-                st.error("Database URL not found in environment variables")
-                return
+                database_url = 'sqlite:///research.db'
             
             self.engine = create_engine(database_url)
             Base.metadata.create_all(self.engine)
