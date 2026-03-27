@@ -19,7 +19,8 @@ class ModelTrainer:
     
     def __init__(self, model_name="distilbert-base-multilingual-cased"):
         self.model_name = model_name
-        self.device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+        self.device = torch.device('cpu')
+        torch.set_num_threads(1)
         
     def create_model(self, num_labels, label2id, id2label):
         """
