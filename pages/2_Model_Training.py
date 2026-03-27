@@ -1,4 +1,5 @@
 import streamlit as st
+st.warning('⚠️ Training on free tier may be slow. Use Dataset Size=100, Epochs=1 for best results.')
 import sys
 import os
 import torch
