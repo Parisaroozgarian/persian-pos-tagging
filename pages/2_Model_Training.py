@@ -404,3 +404,4 @@ with st.expander("ℹ️ Training Help & Tips"):
     - **Frozen models:** May be 2-5% lower but much faster
     - **Training time:** Freezing can reduce time by 30-60%
     """)
+# GPU deployment Fri 27 Mar 2026 00:34:43 EDT
