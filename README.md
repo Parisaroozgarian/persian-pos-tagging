@@ -13,3 +13,4 @@ license: mit
 # 🔬 Persian PoS Tagging
 
 Partial layer freezing research for Persian PoS Tagging using DistilmBERT.
+
