@@ -35,7 +35,7 @@ def load_persian_ud_dataset(subset_size=None):
     """
     try:
         # Load the Persian-Seraji UD dataset
-        dataset = load_dataset("conll2003")
+        dataset = load_dataset("universal-dependencies/universal_dependencies", "fa_seraji")
         
         train_data = dataset['train']
         test_data = dataset['test']
