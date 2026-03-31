@@ -10,7 +10,6 @@ from transformers import (
 )
 from sklearn.metrics import accuracy_score, precision_recall_fscore_support
 import numpy as np
-from tqdm import tqdm
 import time
 import copy
 
@@ -184,8 +183,7 @@ class ModelTrainer:
             total_train_loss = 0
             model.train()
             
-            train_progress = tqdm(train_dataloader, desc=f"Epoch {epoch+1}/{epochs} - Training")
-            for batch_idx, batch in enumerate(train_progress):
+            for batch_idx, batch in enumerate(train_dataloader):
                 # Move batch to device
                 input_ids = batch['input_ids'].to(self.device)
                 attention_mask = batch['attention_mask'].to(self.device)
@@ -206,9 +204,6 @@ class ModelTrainer:
                 loss.backward()
                 optimizer.step()
                 scheduler.step()
-                
-                # Update progress bar
-                train_progress.set_postfix({'loss': loss.item()})
                 
                 # Call progress callback if provided
                 if progress_callback:
