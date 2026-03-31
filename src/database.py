@@ -93,6 +93,17 @@ class DatabaseManager:
         """Initialize database connection"""
         try:
             database_url = os.getenv('DATABASE_URL', 'sqlite:///research.db')
+            self.engine = create_engine(database_url)
+            Base.metadata.create_all(self.engine)
+            self.Session = sessionmaker(bind=self.engine)
+            
+        except Exception as e:
+            st.error(f"Failed to initialize database: {str(e)}")
+    
+    def get_session(self):
+        """Get database session"""
+        if self.Session:
+            return self.Session()
         return None
     
     def save_dataset(self, dataset_config, statistics):
