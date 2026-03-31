@@ -62,13 +62,13 @@ if analysis_type == "Overall Performance":
     # Performance comparison chart
     perf_fig = create_performance_comparison(training_results)
     if perf_fig:
-        st.plotly_chart(perf_fig, use_container_width=True)
+        st.plotly_chart(perf_fig, width='stretch')
     
     # Results summary table
     st.subheader("📊 Detailed Results Summary")
     results_table = create_detailed_results_table(training_results, freezing_info)
     if not results_table.empty:
-        st.dataframe(results_table, use_container_width=True)
+        st.dataframe(results_table, width='stretch')
         
         # Highlight best performing strategy
         best_strategy = results_table.iloc[0]['Strategy']
@@ -141,19 +141,19 @@ elif analysis_type == "Training Efficiency":
     # Training curves
     curves_fig = create_training_curves(training_results)
     if curves_fig:
-        st.plotly_chart(curves_fig, use_container_width=True)
+        st.plotly_chart(curves_fig, width='stretch')
     
     # Efficiency analysis
     efficiency_fig = create_efficiency_analysis(training_results, freezing_info)
     if efficiency_fig:
-        st.plotly_chart(efficiency_fig, use_container_width=True)
+        st.plotly_chart(efficiency_fig, width='stretch')
     
     # Parameter reduction visualization
     st.subheader("📉 Parameter Reduction Analysis")
     
     param_fig = visualize_parameter_reduction(list(freezing_info.values()))
     if param_fig:
-        st.plotly_chart(param_fig, use_container_width=True)
+        st.plotly_chart(param_fig, width='stretch')
     
     # Training time comparison
     st.subheader("⏱️ Training Time Comparison")
@@ -242,7 +242,7 @@ elif analysis_type == "Layer Analysis":
         strategy_df = pd.DataFrame(strategy_data)
         strategy_df = strategy_df.sort_values('Accuracy', ascending=False)
         
-        st.dataframe(strategy_df, use_container_width=True)
+        st.dataframe(strategy_df, width='stretch')
     
     # Layer contribution analysis
     st.subheader("📊 Layer Contribution Analysis")
@@ -280,7 +280,7 @@ elif analysis_type == "Detailed Metrics":
     # Comprehensive metrics table
     detailed_table = create_detailed_results_table(training_results, freezing_info)
     if not detailed_table.empty:
-        st.dataframe(detailed_table, use_container_width=True)
+        st.dataframe(detailed_table, width='stretch')
     
     # Per-strategy detailed analysis
     st.subheader("📈 Strategy-by-Strategy Analysis")
@@ -325,7 +325,7 @@ elif analysis_type == "Detailed Metrics":
                 fig.add_trace(go.Scatter(x=epochs, y=results['history']['val_f1'], name='Val F1'), row=2, col=2)
                 
                 fig.update_layout(height=400, showlegend=False, title=f"Training Progress: {strategy}")
-                st.plotly_chart(fig, use_container_width=True)
+                st.plotly_chart(fig, width='stretch')
 
 # Export section
 st.markdown("---")

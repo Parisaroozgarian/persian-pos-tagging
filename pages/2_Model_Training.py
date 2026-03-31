@@ -108,7 +108,7 @@ with col1:
             
             # Show visualization for selected strategy
             viz_fig = visualize_freezing_strategy(strategy_key)
-            st.plotly_chart(viz_fig, use_container_width=True)
+            st.plotly_chart(viz_fig, width='stretch')
             
             st.markdown("---")
 
@@ -290,7 +290,7 @@ else:
                     )
                     
                     fig.update_layout(height=300, showlegend=False)
-                    st.plotly_chart(fig, use_container_width=True)
+                    st.plotly_chart(fig, width='stretch')
             
             # Display metrics for this strategy
             with metrics_container:
@@ -368,7 +368,7 @@ if st.session_state.get('models_trained', False):
     
     import pandas as pd
     results_df = pd.DataFrame(results_data)
-    st.dataframe(results_df, use_container_width=True)
+    st.dataframe(results_df, width='stretch')
     
     st.success("🔬 Ready for detailed analysis! Go to the Results Analysis page.")
 

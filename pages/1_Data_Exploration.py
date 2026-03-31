@@ -120,7 +120,7 @@ if not st.session_state.get('dataset_loaded', False):
     
     with col1:
         arch_fig = create_model_architecture_diagram()
-        st.plotly_chart(arch_fig, use_container_width=True)
+        st.plotly_chart(arch_fig, width='stretch')
     
     with col2:
         st.markdown("""
@@ -189,7 +189,7 @@ else:
             "POS Tag Distribution - Training Set"
         )
         if train_dist_fig:
-            st.plotly_chart(train_dist_fig, use_container_width=True)
+            st.plotly_chart(train_dist_fig, width='stretch')
     
     with tab2:
         val_dist_fig = create_pos_distribution_chart(
@@ -197,7 +197,7 @@ else:
             "POS Tag Distribution - Validation Set"
         )
         if val_dist_fig:
-            st.plotly_chart(val_dist_fig, use_container_width=True)
+            st.plotly_chart(val_dist_fig, width='stretch')
     
     # Dataset overview visualization
     st.markdown("---")
@@ -205,7 +205,7 @@ else:
     
     overview_fig = create_dataset_overview(stats)
     if overview_fig:
-        st.plotly_chart(overview_fig, use_container_width=True)
+        st.plotly_chart(overview_fig, width='stretch')
     
     # Label mapping information
     st.markdown("---")
@@ -219,7 +219,7 @@ else:
             {"POS Tag": tag, "ID": idx} 
             for tag, idx in prepared_data['label2id'].items()
         ])
-        st.dataframe(label_df, use_container_width=True, height=300)
+        st.dataframe(label_df, width='stretch', height=300)
     
     with col2:
         st.markdown("**Sample Sentences:**")
@@ -233,7 +233,7 @@ else:
                     "Token": sent,
                     "POS Tag": pos
                 })
-                st.dataframe(example_df, use_container_width=True)
+                st.dataframe(example_df, width='stretch')
     
     # Preprocessing details
     st.markdown("---")

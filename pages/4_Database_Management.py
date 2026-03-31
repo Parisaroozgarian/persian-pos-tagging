@@ -86,7 +86,7 @@ if operation == "Dashboard":
             })
         
         exp_df = pd.DataFrame(exp_data)
-        st.dataframe(exp_df, use_container_width=True)
+        st.dataframe(exp_df, width='stretch')
     else:
         st.info("No experiments found in database. Start by running some experiments!")
     
@@ -115,7 +115,7 @@ if operation == "Dashboard":
                 height=400
             )
             
-            st.plotly_chart(fig, use_container_width=True)
+            st.plotly_chart(fig, width='stretch')
 
 elif operation == "Experiment History":
     st.subheader("🔬 Experiment History")
@@ -173,7 +173,7 @@ elif operation == "Experiment History":
                     })
                 
                 results_df = pd.DataFrame(results_data)
-                st.dataframe(results_df, use_container_width=True)
+                st.dataframe(results_df, width='stretch')
                 
                 # Performance comparison chart
                 if len(results) > 1:
@@ -195,7 +195,7 @@ elif operation == "Experiment History":
                             height=400
                         )
                         
-                        st.plotly_chart(fig, use_container_width=True)
+                        st.plotly_chart(fig, width='stretch')
             else:
                 st.info("No results found for this experiment")
     else:
@@ -245,7 +245,7 @@ elif operation == "Data Export":
                     mime="text/csv"
                 )
                 
-                st.dataframe(export_df.head(10), use_container_width=True)
+                st.dataframe(export_df.head(10), width='stretch')
                 st.caption(f"Preview showing first 10 of {len(export_df)} total records")
         else:
             st.info("No experiment data available for export")
@@ -288,7 +288,7 @@ elif operation == "Data Export":
                         mime="text/csv"
                     )
                     
-                    st.dataframe(detailed_df, use_container_width=True)
+                    st.dataframe(detailed_df, width='stretch')
 
 elif operation == "Database Statistics":
     st.subheader("📈 Database Statistics")
@@ -361,7 +361,7 @@ elif operation == "Database Statistics":
             
             if strategy_summary:
                 strategy_df = pd.DataFrame(strategy_summary)
-                st.dataframe(strategy_df, use_container_width=True)
+                st.dataframe(strategy_df, width='stretch')
 
 elif operation == "Cleanup & Maintenance":
     st.subheader("🧹 Database Cleanup & Maintenance")
