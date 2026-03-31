@@ -11,7 +11,7 @@ import plotly.graph_objects as go
 import plotly.express as px
 
 # Add src directory to path
-sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'src'))
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'src'))
 
 from database import get_database_manager
 

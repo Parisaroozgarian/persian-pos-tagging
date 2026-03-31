@@ -10,7 +10,7 @@ from plotly.subplots import make_subplots
 from datetime import datetime
 
 # Add src directory to path
-sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'src'))
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'src'))
 
 from model_trainer import ModelTrainer, create_data_loaders
 from freezing_strategies import get_available_strategies, visualize_freezing_strategy, get_strategy_recommendations

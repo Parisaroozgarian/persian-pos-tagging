@@ -5,7 +5,7 @@ import pandas as pd
 import numpy as np
 
 # Add src directory to path
-sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'src'))
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'src'))
 
 from data_loader import load_persian_ud_dataset, prepare_datasets, get_dataset_statistics
 from visualization import create_pos_distribution_chart, create_dataset_overview, create_model_architecture_diagram
